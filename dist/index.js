@@ -703,8 +703,9 @@ class CustomEnergyCard extends (0, _litElement.LitElement) {
     updated() {
         this._updatePolyline();
     }
+    S;
     _updatePolyline() {
-        // Get references to the boxes
+        // Get references to the boxesS
         const solarBox = this.shadowRoot.getElementById("solar");
         const pv1Box = this.shadowRoot.getElementById("pv1");
         const pv3Box = this.shadowRoot.getElementById("pv3");

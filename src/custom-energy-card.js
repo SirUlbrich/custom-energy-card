@@ -107,47 +107,47 @@ export class CustomEnergyCard extends LitElement {
   }
   updated() {
     this._updatePolyline();
-  }
+  }S
   _updatePolyline() {
-    // Get references to the boxes
-    const solarBox = this.shadowRoot.getElementById("solar");
-    const pv1Box = this.shadowRoot.getElementById("pv1");
-    const pv3Box = this.shadowRoot.getElementById("pv3");
+  // Get references to the boxesS
+  const solarBox = this.shadowRoot.getElementById("solar");
+  const pv1Box = this.shadowRoot.getElementById("pv1");
+  const pv3Box = this.shadowRoot.getElementById("pv3");
 
-    // Get the SVG polyline
-    const polyline1 = this.shadowRoot.getElementById("connection-line-1");
-    const polyline2 = this.shadowRoot.getElementById("connection-line-2");
+  // Get the SVG polyline
+  const polyline1 = this.shadowRoot.getElementById("connection-line-1");
+  const polyline2 = this.shadowRoot.getElementById("connection-line-2");
 
-    // Function to get the center of a box
-    function getBox(box) {
-      const rect = box.getBoundingClientRect();
-      return {
-        lx: rect.left,
-        ly: rect.top + rect.height / 2,
-        tx: rect.left + rect.width / 2,
-        ty: rect.top,
-        rx: rect.right,
-        ry: rect.top + rect.height / 2,
-        dx: rect.left + rect.width / 2,
-        dy: rect.bottom,
-      };
-    }
-    // Get the center of the Solar and PV1 boxes
-    const solarPol = getBox(solarBox);
-    const pv1Pol = getBox(pv1Box);
-    const pv3Pol = getBox(pv3Box);
+  // Function to get the center of a box
+  function getBox(box) {
+    const rect = box.getBoundingClientRect();
+    return {
+      lx: rect.left,
+      ly: rect.top + rect.height / 2,
+      tx: rect.left + rect.width / 2,
+      ty: rect.top,
+      rx: rect.right,
+      ry: rect.top + rect.height / 2,
+      dx: rect.left + rect.width / 2,
+      dy: rect.bottom,
+    };
+  }
+  // Get the center of the Solar and PV1 boxes
+  const solarPol = getBox(solarBox);
+  const pv1Pol = getBox(pv1Box);
+  const pv3Pol = getBox(pv3Box);
 
-    // Create the right-angle points for the polyline
-    const intermediateX1 = pv1Pol.tx; // Move horizontally to the same x-coordinate as PV1
-    const intermediateY1 = solarPol.ly; // Keep the y-coordinate the same as Solar
-    polyline1.setAttribute("points", `${solarPol.lx},${solarPol.ly} ${intermediateX1},${intermediateY1} ${pv1Pol.tx},${pv1Pol.ty}`);
-    // Set the polyline points for a 90° connection from Solar to PV1
+  // Create the right-angle points for the polyline
+  const intermediateX1 = pv1Pol.tx; // Move horizontally to the same x-coordinate as PV1
+  const intermediateY1 = solarPol.ly; // Keep the y-coordinate the same as Solar
+  polyline1.setAttribute("points", `${solarPol.lx},${solarPol.ly} ${intermediateX1},${intermediateY1} ${pv1Pol.tx},${pv1Pol.ty}`);
+  // Set the polyline points for a 90° connection from Solar to PV1
 
-    const intermediateX2 = pv3Pol.tx; // Move horizontally to the same x-coordinate as PV1
-    const intermediateY2 = solarPol.ly; // Keep the y-coordinate the same as Solar
-    polyline2.setAttribute("points", `${solarPol.rx},${solarPol.ry} ${intermediateX2},${intermediateY2} ${pv3Pol.tx},${pv3Pol.ty}`);
-    // Set the polyline points for a 90° connection from Solar to PV1
-    
+  const intermediateX2 = pv3Pol.tx; // Move horizontally to the same x-coordinate as PV1
+  const intermediateY2 = solarPol.ly; // Keep the y-coordinate the same as Solar
+  polyline2.setAttribute("points", `${solarPol.rx},${solarPol.ry} ${intermediateX2},${intermediateY2} ${pv3Pol.tx},${pv3Pol.ty}`);
+  // Set the polyline points for a 90° connection from Solar to PV1
+  
   }
   static getConfigElement() {
     return document.createElement("energy-card-editor");
