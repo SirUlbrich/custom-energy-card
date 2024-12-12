@@ -90,6 +90,12 @@ class CustomEnergyCard extends LitElement {
     else if (!config.pv1) {
       throw new Error('pv1 fehlt');
     }
+    else if (!config.pv2) {
+      throw new Error('pv2 fehlt');
+    }
+    else if (!config.pv3) {
+      throw new Error('pv3 fehlt');
+    }
     else if (!config.consumption) {
       throw new Error('consumption fehlt');
     }
@@ -106,10 +112,12 @@ class CustomEnergyCard extends LitElement {
 
     const solarState = this.hass.states[this._config.solar];
     const pv1State = this.hass.states[this._config.pv1];
+    const pv2State = this.hass.states[this._config.pv2];
+    const pv3State = this.hass.states[this._config.pv3];
     const consumptionState = this.hass.states[this._config.consumption];
 
     if (!solarState) {
-      return html` <ha-card>Unknown entity: ${this._config.solar}</ha-card> `;
+      return html` <ha-card>Unknown Solar: ${this._config.solar}</ha-card> `;
     }
 
     // @click below is also LitElement magic
@@ -125,23 +133,35 @@ class CustomEnergyCard extends LitElement {
               ${pv1State && pv1State.state
                 ? html`
                   <div class="box" id="pv1">
-                      <div>☀️ PV1</div>
-                      <div class="state" id="pv1State">${pv1State ? pv1State.state : "N/A"}</div>
+                    <div>☀️ PV1</div>
+                    <div class="state" id="pv1State">${pv1State ? pv1State.state : "N/A"}</div>
+                    <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
+                      <polyline id="connection-line-1" points="" stroke="black" stroke-width="2" fill="none" />
+                    </svg>
                   </div>`
                 : null
               }
+              <div class="box" id="pv3">
+                <div>☀️ PV2</div>
+                <div class="state" id="pv3State">${pv2State ? pv2State.state : "N/A"}</div>
+                
+              </div>
+              <div class="box" id="pv3">
+                <div>☀️ PV3</div>
+                <div class="state" id="pv3State">${pv3State ? pv3State.state : "N/A"}</div>
+                <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
+                  <polyline id="connection-line-2" points="" stroke="black" stroke-width="2" fill="none" />
+                </svg>
+              </div>
+              <div class="box" id="grid"><div>Netz</div></div>
               <div class="box" id="consumption">
                   <div>⚡ Consumption</div>
                   <div class="state" id="consumptionState">${consumptionState ? consumptionState.state : "N/A"}</div>
               </div>
-              <div class="box" id="grid"><div>Netz</div></div>
-              <div class="box" id="pv3"><div>PV3</div></div>
-              <div class="box" id="pv2"><div>PV2</div></div>
-              </div>
           </div>
           <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
             <!-- Example polyline connecting boxes -->
-            <polyline id="connection-line-1" points="" stroke="black" stroke-width="2" fill="none" />
+            
             <polyline id="connection-line-2" points="" stroke="black" stroke-width="2" fill="none" />
           
           </svg>
@@ -170,7 +190,6 @@ class CustomEnergyCard extends LitElement {
 
     // Function to get the center of a box
     function getBox(box) {
-      if (!box) return null;
       const rect = box.getBoundingClientRect();
       return {
         lx: rect.left,

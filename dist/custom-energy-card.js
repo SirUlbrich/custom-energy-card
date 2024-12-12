@@ -117,7 +117,7 @@ class CustomEnergyCard extends LitElement {
     const consumptionState = this.hass.states[this._config.consumption];
 
     if (!solarState) {
-      return html` <ha-card>Unknown entity: ${this._config.solar}</ha-card> `;
+      return html` <ha-card>Unknown Solar: ${this._config.solar}</ha-card> `;
     }
 
     // @click below is also LitElement magic
