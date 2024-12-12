@@ -32,7 +32,7 @@ class CustomEnergyCard extends LitElement {
         gap: 5%;
         width: 100%;
         height: 100%;
-        padding: 20px;
+        padding: 2%;
       }
       .box {
         display: flex;
@@ -141,7 +141,7 @@ class CustomEnergyCard extends LitElement {
                   </div>`
                 : null
               }
-              <div class="box" id="pv3">
+              <div class="box" id="pv2">
                 <div>☀️ PV2</div>
                 <div class="state" id="pv3State">${pv2State ? pv2State.state : "N/A"}</div>
                 
@@ -155,7 +155,7 @@ class CustomEnergyCard extends LitElement {
               </div>
               <div class="box" id="grid"><div>Netz</div></div>
               <div class="box" id="consumption">
-                  <div>⚡ Consumption</div>
+                  <div>⚡ Haus</div>
                   <div class="state" id="consumptionState">${consumptionState ? consumptionState.state : "N/A"}</div>
               </div>
           </div>
