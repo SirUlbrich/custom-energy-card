@@ -901,7 +901,7 @@ window.customCards = window.customCards || [];
 window.customCards.push({
     type: "custom-energy-card",
     name: "CustomEnergyCard",
-    description: "Mein Testversuch \xc4nderung!" // optional
+    description: "Mein Testversuch 223!" // optional
 });
 
 
