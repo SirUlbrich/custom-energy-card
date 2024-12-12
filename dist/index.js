@@ -675,7 +675,7 @@ class CustomEnergyCard extends (0, _litElement.LitElement) {
                 <div>☀️ PV3</div>
                 <div class="state" id="pv3State">${pv3State ? pv3State.state : "N/A"}</div>
                 <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
-                  <polyline id="connection-line-2" points="" stroke="black" stroke-width="2" fill="none" />
+                  <polyline id="connection-line-2" points="" stroke="lightgrey" stroke-width="2" fill="none" />
                 </svg>
               </div>
               <div class="box" id="grid"><div>Netz</div></div>
@@ -687,7 +687,7 @@ class CustomEnergyCard extends (0, _litElement.LitElement) {
           <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
             <!-- Example polyline connecting boxes -->
             
-            <polyline id="connection-line-2" points="" stroke="black" stroke-width="2" fill="none" />
+            <polyline id="connection-line-2" points="" stroke="lightgrey" stroke-width="2" fill="none" />
           
           </svg>
           <div>
