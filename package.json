@@ -2,8 +2,8 @@
   "devDependencies": {
     "parcel": "^2.13.2"
   },
-  "source": "src/card.js",
-  "module": "dist/card.js",
+  "source": "src/index.js",
+  "module": "dist/custom-energy-card.js",
   "targets": {
     "module": {
       "includeNodeModules": true

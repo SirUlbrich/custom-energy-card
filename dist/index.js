@@ -748,7 +748,7 @@ class CustomEnergyCard extends (0, _litElement.LitElement) {
             pv1: "pv1",
             pv2: "pv2",
             pv3: "pv3",
-            consumption: "verbrauch"
+            consumption: "hausverbrauch"
         };
     }
 }
