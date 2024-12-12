@@ -193,10 +193,11 @@ class CustomEnergyCard extends LitElement {
   // Set the polyline points for a 90° connection from Solar to PV1
   }
 }
+customElements.define('custom-energy-card', CustomEnergyCard);
+
 window.customCards = window.customCards || [];
 window.customCards.push({
     type: "custom-energy-card",
     name: "CustomEnergyCard",
     description: "Mein Testversuch!" // optional
 });
-customElements.define('custom-energy-card', CustomEnergyCard);
