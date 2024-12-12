@@ -604,7 +604,7 @@ window.customCards = window.customCards || [];
 window.customCards.push({
     type: "custom-energy-card",
     name: "CustomEnergyCard",
-    description: "Mein Testversuch!!" // optional
+    description: "Mein Testversuch!! 253" // optional
 });
 
 },{"./custom-energy-card":"dBghT","./energy-card-editor":"iEZVU"}],"dBghT":[function(require,module,exports,__globalThis) {
