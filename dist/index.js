@@ -597,7 +597,9 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"8lqZg":[function(require,module,exports,__globalThis) {
 var _customEnergyCard = require("./custom-energy-card");
+var _energyCardEditor = require("./energy-card-editor");
 customElements.define("custom-energy-card", (0, _customEnergyCard.CustomEnergyCard));
+customElements.define('energy-card-editor', (0, _energyCardEditor.EnergyCardEditor));
 window.customCards = window.customCards || [];
 window.customCards.push({
     type: "custom-energy-card",
@@ -605,7 +607,7 @@ window.customCards.push({
     description: "Mein Testversuch!" // optional
 });
 
-},{"./custom-energy-card":"dBghT"}],"dBghT":[function(require,module,exports,__globalThis) {
+},{"./custom-energy-card":"dBghT","./energy-card-editor":"iEZVU"}],"dBghT":[function(require,module,exports,__globalThis) {
 /*import { html, LitElement, css } from "https://unpkg.com/lit-element@2.4.0/lit-element.js?module";*/ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "CustomEnergyCard", ()=>CustomEnergyCard);
@@ -632,11 +634,7 @@ class CustomEnergyCard extends (0, _litElement.LitElement) {
         return 0, _customEnergyCardStylesDefault.default;
     }
     setConfig(config) {
-        if (!config.solar) throw new Error('Solar fehlt');
-        else if (!config.pv1) throw new Error('pv1 fehlt');
-        else if (!config.pv2) throw new Error('pv2 fehlt');
-        else if (!config.pv3) throw new Error('pv3 fehlt');
-        else if (!config.consumption) throw new Error('consumption fehlt');
+        if (!config.solar || !config.pv1 || !config.pv2 || !config.pv3 || !config.consumption) throw new Error("Eine oder mehrere Entit\xe4ten fehlen");
         this._config = config;
     }
     // The render() function of a LitElement returns the HTML of your card, and any time one or the
@@ -741,14 +739,19 @@ class CustomEnergyCard extends (0, _litElement.LitElement) {
         polyline2.setAttribute("points", `${solarPol.rx},${solarPol.ry} ${intermediateX2},${intermediateY2} ${pv3Pol.tx},${pv3Pol.ty}`);
     // Set the polyline points for a 90° connection from Solar to PV1
     }
+    static getConfigElement() {
+        return document.createElement("energy-card-editor");
+    }
+    static getStubConfig() {
+        return {
+            solar: "pv-total",
+            pv1: "pv1",
+            pv2: "pv2",
+            pv3: "pv3",
+            consumption: "verbrauch"
+        };
+    }
 }
-customElements.define('custom-energy-card', CustomEnergyCard);
-window.customCards = window.customCards || [];
-window.customCards.push({
-    type: "custom-energy-card",
-    name: "CustomEnergyCard",
-    description: "Mein Testversuch!" // optional
-});
 
 },{"lit-element":"kvK5P","./custom-energy-card.styles":"7CGS3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kvK5P":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1517,6 +1520,84 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "isServer", ()=>o);
 const o = !1;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["9mu7C","8lqZg"], "8lqZg", "parcelRequire94c2")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iEZVU":[function(require,module,exports,__globalThis) {
+// energy-card-editor.js
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "EnergyCardEditor", ()=>EnergyCardEditor);
+var _lit = require("lit");
+class EnergyCardEditor extends (0, _lit.LitElement) {
+    static get properties() {
+        return {
+            // hass: {},
+            _config: {
+                state: true
+            }
+        };
+    }
+    setConfig(config) {
+        this._config = config;
+    }
+    static styles = (0, _lit.css)`
+            .table {
+                display: table;
+            }
+            .row {
+                display: table-row;
+            }
+            .cell {
+                display: table-cell;
+                padding: 0.5em;
+            }
+        `;
+    render() {
+        return (0, _lit.html)`
+            <form class="table">
+                <div class="row">
+                    <label class="label cell" for="pv1">pv1:</label>
+                    <input
+                        @change="${this.handleChangedEvent}"
+                        class="value cell" id="pv1" value="${this._config.pv1}"></input>
+                </div>
+                <div class="row">
+                    <label class="label cell" for="pv2">pv2:</label>
+                    <input
+                        @change="${this.handleChangedEvent}"
+                        class="value cell" id="pv2" value="${this._config.pv2}"></input>
+                </div>
+                <div class="row">
+                    <label class="label cell" for="pv3">pv3:</label>
+                    <input
+                        @change="${this.handleChangedEvent}"
+                        class="value cell" id="pv3" value="${this._config.pv3}"></input>
+                </div>
+                <div class="row">
+                    <label class="label cell" for="consumption">consumption:</label>
+                    <input
+                        @change="${this.handleChangedEvent}"
+                        class="value cell" id="consumption" value="${this._config.consumption}"></input>
+                </div>
+            </form>
+        `;
+    }
+    handleChangedEvent(changedEvent) {
+        // this._config is readonly, copy needed
+        var newConfig = Object.assign({}, this._config);
+        if (changedEvent.target.id == "pv1") newConfig.pv1 = changedEvent.target.value;
+        else if (changedEvent.target.id == "pv2") newConfig.pv2 = changedEvent.target.value;
+        else if (changedEvent.target.id == "pv3") newConfig.pv3 = changedEvent.target.value;
+        else if (changedEvent.target.id == "consumption") newConfig.consumption = changedEvent.target.value;
+        const messageEvent = new CustomEvent("config-changed", {
+            detail: {
+                config: newConfig
+            },
+            bubbles: true,
+            composed: true
+        });
+        this.dispatchEvent(messageEvent);
+    }
+}
+
+},{"lit":"4antt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["9mu7C","8lqZg"], "8lqZg", "parcelRequire94c2")
 
 //# sourceMappingURL=index.js.map

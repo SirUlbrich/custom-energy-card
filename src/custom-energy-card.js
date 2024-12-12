@@ -25,20 +25,8 @@ export class CustomEnergyCard extends LitElement {
   }
 
   setConfig(config) {
-    if (!config.solar) {
-      throw new Error('Solar fehlt');
-    }
-    else if (!config.pv1) {
-      throw new Error('pv1 fehlt');
-    }
-    else if (!config.pv2) {
-      throw new Error('pv2 fehlt');
-    }
-    else if (!config.pv3) {
-      throw new Error('pv3 fehlt');
-    }
-    else if (!config.consumption) {
-      throw new Error('consumption fehlt');
+    if (!config.solar || !config.pv1 || !config.pv2 || !config.pv3 || !config.consumption) {
+      throw new Error('Eine oder mehrere Entitäten fehlen');
     }
     this._config = config;
   }
@@ -161,12 +149,17 @@ export class CustomEnergyCard extends LitElement {
     // Set the polyline points for a 90° connection from Solar to PV1
     
   }
-}
-customElements.define('custom-energy-card', CustomEnergyCard);
+  static getConfigElement() {
+    return document.createElement("energy-card-editor");
+  } 
 
-window.customCards = window.customCards || [];
-window.customCards.push({
-    type: "custom-energy-card",
-    name: "CustomEnergyCard",
-    description: "Mein Testversuch!" // optional
-});
+  static getStubConfig() {
+    return {
+      solar: "pv-total",
+      pv1: "pv1",
+      pv2: "pv2",
+      pv3: "pv3",
+      consumption: "verbrauch"
+    }
+  }
+}
