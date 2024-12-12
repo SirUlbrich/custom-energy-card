@@ -1,11 +1,7 @@
 /*import { html, LitElement, css } from "https://unpkg.com/lit-element@2.4.0/lit-element.js?module";*/
 import { html, LitElement, css } from "lit-element";
-import styles from './custom-energy-card.styles'; 
+class CustomEnergyCard extends LitElement {
 
-export class CustomEnergyCard extends LitElement {
-
-  _hass;
-  
   // This will make parts of the card rerender when this.hass or this._config is changed.
   // this.hass is updated by Home Assistant whenever anything happens in your system.
   static get properties() {
@@ -21,9 +17,72 @@ export class CustomEnergyCard extends LitElement {
     return 3;
   }
   static get styles() {
-    return styles;
-  }
+    return css`
+      .card {
+        display: grid;
+        grid-template-areas:
+          ". solar ."
+          "pv1 pv2 pv3"
+          ". . ."
+          "grid consumption battery";
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        align-items: center;
+        justify-items: center;
+        gap: 5%;
+        width: 100%;
+        height: 100%;
+        padding: 2%;
+      }
+      .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        border: 1px solid #ddd;
+        height: 100%;
+        width: 100%;
+        background-color: grey
+      }
+      #solar {
+        grid-area: solar;
+      }
+      #pv1 {
+        grid-area: pv1;
+      }
+      #pv2 {
+        grid-area: pv2;
+      }
+      #pv3 {
+        grid-area: pv3;
+      }
+      #battery {
+        grid-area: battery;
+      }
+      #grid {
+        grid-area: grid;
+      }
+      /* Gestaltung */
+      #consumption {
+        grid-area: consumption;
+        background-color: grey;
+      }
+      #solar, #pv1, #pv2, #pv3 {
+        background-color: lightyellow;
+      }
+      #battery {
+        background-color: lightskyblue;
+      }
+      #grid {
+        background-color: lightgreen;
+      }
+      .box .state {
+        font-size: 1.0em;
+        font-weight: bold;
+      }
 
+    `;
+  }
   setConfig(config) {
     if (!config.solar) {
       throw new Error('Solar fehlt');
