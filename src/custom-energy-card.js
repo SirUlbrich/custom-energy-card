@@ -1,5 +1,5 @@
-import { html, LitElement, css } from "https://unpkg.com/lit-element@2.4.0/lit-element.js?module";
-/*import { html, LitElement, css } from "lit-element";*/
+/*import { html, LitElement, css } from "https://unpkg.com/lit-element@2.4.0/lit-element.js?module";*/
+import { html, LitElement, css } from "lit-element";
 class CustomEnergyCard extends LitElement {
 
   // This will make parts of the card rerender when this.hass or this._config is changed.
@@ -168,6 +168,7 @@ class CustomEnergyCard extends LitElement {
           <div>
           reihe 2
           </div>
+        </div>
       </ha-card>
     `;
   }
