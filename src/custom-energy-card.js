@@ -18,7 +18,7 @@ export class CustomEnergyCard extends LitElement {
     // The height of your card. Home Assistant uses this to automatically
     // distribute all cards over the available columns.
     // This is actually optional. If not present, the cardHeight is assumed to be 1.
-    return 3;
+    return 6;
   }
   static get styles() {
     return styles;

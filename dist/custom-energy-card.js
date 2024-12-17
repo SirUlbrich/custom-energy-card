@@ -694,7 +694,7 @@ class $1744cda4d360694d$export$8b58a2cee425dd34 extends (0, $ab210b2da7b39b9d$ex
         // The height of your card. Home Assistant uses this to automatically
         // distribute all cards over the available columns.
         // This is actually optional. If not present, the cardHeight is assumed to be 1.
-        return 3;
+        return 6;
     }
     static get styles() {
         return 0, $786853f41296b43e$export$2e2bcd8739ae039;
