@@ -65,7 +65,18 @@ export class CustomEnergyCard extends LitElement {
                     <div>☀️ PV1</div>
                     <div class="state" id="pv1State">${pv1State ? pv1State.state : "N/A"}</div>
                     <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
-                      <polyline id="connection-line-1" points="" stroke="black" stroke-width="2" fill="none" />
+                      <!-- Use writeCircleAndLine to create a connection between Solar and PV1 -->
+                      ${this.htmlWriter.writeCircleAndLine(
+                        'generation_to_pv1',
+                        'M' +
+                          (solarPosition.x - this.pxRate + gap) + ',' + solarPosition.y + 
+                          'C' +
+                          (solarPosition.x - this.pxRate + gap) + ',' +
+                          (solarPosition.y + gap) + ' ' +
+                          (solarPosition.x - this.pxRate + gap) + ',' +
+                          (solarPosition.y + gap) + ' ' +
+                          pv1Position.x + ',' + (pv1Position.y - gap)
+                      )}
                     </svg>
                   </div>`
                 : null
@@ -132,6 +143,9 @@ export class CustomEnergyCard extends LitElement {
       dy: rect.bottom,
     };
   }
+  const solarPosition = getBox(solarBox);
+  const pv1Position = getBox(pv1Box);
+  const pv3Position = getBox(pv3Box);
   // Get the center of the Solar and PV1 boxes
   const solarPol = getBox(solarBox);
   const pv1Pol = getBox(pv1Box);
