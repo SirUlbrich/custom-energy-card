@@ -1,6 +1,6 @@
 {
     "name": "CustomEnergyCard",
     "render_readme": true,
-    "filename": "index.js",
+    "filename": "custom-energy-card.js",
     "content_in_root": false
   }
